@@ -63,13 +63,13 @@ ShadowsocksR-libev for OpenWrt
 
    ```bash
    # 以 ar71xx 平台为例
-   tar xjf OpenWrt-SDK-15.05-ar71xx-generic_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
-   cd OpenWrt-SDK-*
+   tar xf openwrt-sdk-19.07.3-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64.tar.xz
+   cd openwrt-sdk-19.07.3-ar71xx-generic_gcc-7.5.0_musl.Linux-x86_64*
    # 安装 feeds
-   ./scripts/feeds update packages
-   ./scripts/feeds install libpcre
+   ./scripts/feeds update -a
+   ./scripts/feeds install libopenssl、libpthread、ipset、ip、iptables-mod-tproxy、libpcre，dnsmasq-full、coreutils-base64
    # 获取 Makefile
-   git clone https://github.com/ywb94/openwrt-ssr.git package/openwrt-ssr
+   git clone https://github.com/levixie/openwrt-ssr.git package/openwrt-ssr
    # 选择要编译的包 
    #luci ->3. Applications-> luci-app-shadowsocksR         原始版本
    #luci ->3. Applications-> luci-app-shadowsocksR-GFW     GFWList版本
@@ -86,19 +86,7 @@ ShadowsocksR-libev for OpenWrt
    # 开始编译
     make package/openwrt-ssr/compile V=99
    ```
- - LEDE编译补充
- 
-   LEDE是OpenWRT的另一个版本，LEDE的SDK采用xz压缩，需先用xz -d解压下载的SDK包，再按上述命令操作
-   
-   使用LEDE的SDK编译，可能会提示找不到zlib和openssl文件，请运行如下命令
- 
-   ```bash
-   ./scripts/feeds update
-   #如果更新base出现错误，修改SDK目录下的feeds.conf.default文件，将“source.git;HEAD”改为“source.git”
-   
-   ./scripts/feeds install zlib
-   ./scripts/feeds install libopenssl
-   ```
+
  - Pandorabox(潘多拉)编译补充
  
   潘多拉也是Openwrt的另一个定制版本，用16.10版本的SDK编译时无法使用feed获取安装包，需要先将libpcre、zlib、libopenssl等makefile放入SDK的package目录，再make menuconfig
@@ -254,4 +242,4 @@ GFW版本支持IP路由模式和GFW列表模式，需卸载原有的dnsmasq，�
   [6]: https://github.com/shadowsocks/luci-app-shadowsocks  
   [7]: https://github.com/bettermanbao/openwrt-kcptun/releases 
   [8]: http://iytc.net/tools/pand.rar 
-  [S]: https://wiki.openwrt.org/doc/howto/obtain.firmware.sdk
+  [S]: https://openwrt.org/docs/guide-developer/using_the_sdk
